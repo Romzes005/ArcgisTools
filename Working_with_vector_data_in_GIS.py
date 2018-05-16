@@ -1,13 +1,11 @@
 import arcpy
 
-
-facilitshp = r'C:\Rwork\s_10\Progr_GIS_s11\facilities.shp'
-zipshp = r'C:\Rwork\s_10\Progr_GIS_s11\zip.shp'
-resultsWorkspace = r'C:\Rwork\s_10\Progr_GIS_s11\Results'
-distance = 3000
-fieldName = 'FACILITY'
-fieldvalue = 'COLLEGE'
-
+facilitshp = arcpy.GetParameterAsText(0)
+zipshp = arcpy.GetParameterAsText(1)
+resultsWorkspace = arcpy.GetParameterAsText(2)
+distance = arcpy.GetParameterAsText(3)
+fieldName = arcpy.GetParameterAsText(4) #FACILITY
+fieldvalue = arcpy.GetParameterAsText(5) #COLLEGE
 
 arcpy.env.workspace = resultsWorkspace
 arcpy.env.overwriteOutput = True
@@ -37,4 +35,27 @@ with arcpy.da.InsertCursor(res_shp, searchFields) as cursorInsert, arcpy.da.Sear
 arcpy.AddMessage("Updated fields: ".format(str(searchFields)))
 
 
+# facilities_Distance_3000.shp COLLEGE_NAME
+newfield = fieldvalue[:5] + '_NAME'
+arcpy.AddField_management(res_shp, newfield, "DOUBLE")
 
+searchvalues = []
+with arcpy.da.SearchCursor("facilit", ('FAC_ID',)) as cursor:
+    for row in cursor:
+        searchvalues.append(row)
+arcpy.AddMessage(str(len(searchvalues)))
+with arcpy.da.UpdateCursor(res_shp, (newfield)) as cursor:
+    i = 0
+    for row in cursor:
+        row = searchvalues[i]
+        cursor.updateRow(row)
+        i += 1
+
+
+# add the result to display
+mxd = arcpy.mapping.MapDocument("CURRENT")
+dataframe = arcpy.mapping.ListDataFrames(mxd, "*")[0]
+addLayer = arcpy.mapping.Layer(res_shp)
+arcpy.mapping.AddLayer(dataframe, addLayer, "AUTO_ARRANGE")
+arcpy.AddMessage("Added '{}' to display".format(res_shp))
+del addLayer, mxd, dataframe
