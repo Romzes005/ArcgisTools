@@ -1,5 +1,12 @@
 import arcpy
 
-inputFC = r"E:\_Sheva\course_3_geoinf\Python_2\GIT\p_6\Lesson2\CountyLines.shp"
-arcpy.env.workspace = r"E:\_Sheva\course_3_geoinf\Python_2\GIT\p_6\Lesson2"
+arcpy.env.workspace = r"C:\Rwork\s_10\Lesson2"
+inputFC = r"C:\Rwork\s_10\Lesson2\CountyLines.shp"
 
+# get spatial reference for the input feature class
+inputDescribe = arcpy.Describe(inputFC)
+inputSR = inputDescribe.SpatialReference
+inputSRName = inputSR.Name
+
+# create a list of FC
+listFC = arcpy.ListFeatureClasses()
