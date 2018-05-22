@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- #################
 # Import arcpy module
 import arcpy
 
@@ -7,9 +7,9 @@ Nebraska__2_= arcpy.GetParameterAsText(1)
 clipout = arcpy.GetParameterAsText(2)
 
 # Roman Local variables:
-# IDWout = "C:\\Rwork\\p_6\\Lesson2\\Test.gdb\\IDWout2"
-# reclassout = "C:\\Rwork\\p_6\\Lesson2\\Test.gdb\\reclassou2"
-# rasterout = "C:\\Rwork\\p_6\\Lesson2\\Test.gdb\\rasterout2"
+IDWout = r"C:\Rwork\SpecialDataForArgisTool\work_zone\s9\Test.gdb\IDWout2"
+reclassout = r"C:\Rwork\SpecialDataForArgisTool\work_zone\s9\Test.gdb\reclassou2"
+rasterout = r"C:\Rwork\SpecialDataForArgisTool\work_zone\s9\Test.gdb\rasterout2"
 
 # Alina Local variables
 # IDWout = "E:\\_Sheva\\course_3_geoinf\\Python_2\\Test.gdb\\IDWout2"
@@ -28,3 +28,7 @@ arcpy.RasterToPolygon_conversion(reclassout, rasterout, "SIMPLIFY", "VALUE")
 # Process: Clip
 arcpy.Clip_analysis(rasterout, Nebraska__2_, clipout, "")
 arcpy.env.overwriteOutput = True
+
+
+
+
