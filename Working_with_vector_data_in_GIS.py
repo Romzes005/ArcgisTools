@@ -6,7 +6,6 @@ resultsWorkspace = arcpy.GetParameterAsText(2)
 distance = arcpy.GetParameterAsText(3)
 fieldName = arcpy.GetParameterAsText(4) #FACILITY
 fieldvalue = arcpy.GetParameterAsText(5) #COLLEGE
-
 arcpy.env.workspace = resultsWorkspace
 arcpy.env.overwriteOutput = True
 
