@@ -3,7 +3,7 @@ import arcpy
 facilitshp = arcpy.GetParameterAsText(0)
 zipshp = arcpy.GetParameterAsText(1)
 resultsWorkspace = arcpy.GetParameterAsText(2)
-distance = arcpy.GetParameterAsText(3)
+distance = arcpy.GetParameterAsText(3) #3000
 fieldName = arcpy.GetParameterAsText(4) #FACILITY
 fieldvalue = arcpy.GetParameterAsText(5) #COLLEGE
 arcpy.env.workspace = resultsWorkspace
